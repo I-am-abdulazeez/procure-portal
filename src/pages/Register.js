@@ -9,8 +9,8 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import { ErrorMessage, Field } from "formik";
-import { useState } from "react";
-import { RiArrowLeftLine, RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
+// import { useState } from "react"; , RiEyeCloseFill, RiEyeFill
+import { RiArrowLeftLine } from "react-icons/ri";
 import * as yup from "yup";
 import SignUpImage from ".././signup.svg";
 import FormikStepper from "../components/FormikStepper";
@@ -51,29 +51,29 @@ const useStyles = makeStyles((theme) => ({
 
 const initialValues = {
   companyName: "",
-  vatRegNumber: "",
+  vatRegNo: "",
   taxIdNumber: "",
   companyDateOfReg: "",
   certOfInCorporationNo: "",
-  registeredOfficeAddress: "",
+  regOfficeAddress: "",
   state: "",
   phoneNumber: "",
   email: "",
-  password: "",
-  memoradum_ArticlesOfAssociation: [],
-  certificateOfIncorporation: [],
-  formCO7_PartcularsOfDirectors: [],
-  vatRegistrationCertificate: [],
-  taxClearanceCertificate: [],
+  // password: "",
+  // memoradum_ArticlesOfAssociation: "",
+  // certificateOfIncorporation: "",
+  // formCO7_PartcularsOfDirectors: "",
+  // vatRegistrationCertificate: "",
+  // taxClearanceCertificate: "",
 };
 
 const Register = () => {
   const classes = useStyles();
-  const [showVal, setShowVal] = useState({ showPassword: false });
+  // const [showVal, setShowVal] = useState({ showPassword: false });
 
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
+  // const sleep = (ms) => {
+  //   return new Promise((resolve) => setTimeout(resolve, ms));
+  // };
 
   return (
     <div>
@@ -126,7 +126,7 @@ const Register = () => {
                 initialValues={initialValues}
                 onSubmit={async (values, { setSubmitting }) => {
                   setSubmitting(true);
-                  const newData = {
+                  const payload = {
                     companyName: values.companyName,
                     vatRegNo: values.vatRegNo,
                     taxIdNumber: values.taxIdNumber,
@@ -134,25 +134,23 @@ const Register = () => {
                     certOfIncorporationNo: values.certOfInCorporationNo,
                     regOfficeAddress: values.regOfficeAddress,
                   };
-                  // await sleep(3000);
+
                   try {
-                    const res = await axios.post(
-                      "http://192.168.0.52:7048/BC180/api/beta/companies(e80ce290-5dcc-eb11-817c-1c98ec2aab3b)/vendorRegistrations",
-                      newData,
+                    const APIURL ='http://192.168.0.52:7048/BC180/api/beta/companies(e80ce290-5dcc-eb11-817c-1c98ec2aab3b)/vendorRegistrations'; //process.env.API_URL;
+                    const res = await axios.post(APIURL, payload,
                       {
-                        auth: {
-                          username: "THL",
-                          password: "T@sting1",
-                        },
+                        auth:{
+                          username: 'THL',//process.env.USERNAME,
+                          password: 'T@sting1'//process.env.PASSWORD,
+                        }
                       }
                     );
-                    const data = res.data;
+                    console.log(res);
+                    // const data = res.data;
                     setSubmitting(false);
-                    // alert(JSON.stringify(values, null, 2));
-                    console.log(data);
                   } catch (error) {
                     setSubmitting(false);
-                    console.log(error.response.data);
+                    console.log(error)
                   }
                 }}
               >
@@ -162,7 +160,7 @@ const Register = () => {
                     companyName: yup
                       .string()
                       .required("Company Name is required"),
-                    vatRegNumber: yup.string().required("is a required field"),
+                    vatRegNo: yup.string().required("is a required field"),
                     taxIdNumber: yup.string().required("is a required field"),
                     companyDateOfReg: yup
                       .string()
@@ -189,15 +187,15 @@ const Register = () => {
                     </Grid>
                     <Grid item xs={6}>
                       <label>VAT Reg No</label>
-                      <Field name="vatRegNumber" as={TextField} fullWidth />
+                      <Field name="vatRegNo" as={TextField} fullWidth />
                       <ErrorMessage
                         className={classes.error}
                         component="div"
-                        name="vatRegNumber"
+                        name="vatRegNo"
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <label>Tax Id Number</label>
+                      <label>Tax ID Number</label>
                       <Field name="taxIdNumber" as={TextField} fullWidth />
                       <ErrorMessage
                         className={classes.error}
@@ -206,7 +204,7 @@ const Register = () => {
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <label>Company Date of Registration Date</label>
+                      <label>Company's Date of Registration</label>
                       <Field
                         name="companyDateOfReg"
                         as={TextField}
@@ -237,7 +235,7 @@ const Register = () => {
                 <FormikStep
                   label="Company Registration Details"
                   validationSchema={yup.object({
-                    registeredOfficeAddress: yup
+                    regOfficeAddress: yup
                       .string()
                       .required("Address is required"),
                     state: yup.string().required("State is required"),
@@ -246,24 +244,24 @@ const Register = () => {
                       .string()
                       .required()
                       .email("Email is baddly formatted!"),
-                    password: yup
-                      .string()
-                      .required("password is required")
-                      .min(6, "Minimum of 6 characters"),
+                    // password: yup
+                    //   .string()
+                    //   .required("password is required")
+                    //   .min(6, "Minimum of 6 characters"),
                   })}
                 >
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
-                      <label>Registered Office Address</label>
+                      <label>Office Address</label>
                       <Field
-                        name="registeredOfficeAddress"
+                        name="regOfficeAddress"
                         as={TextField}
                         fullWidth
                       />
                       <ErrorMessage
                         className={classes.error}
                         component="div"
-                        name="registeredOfficeAddress"
+                        name="regOfficeAddress"
                       />
                     </Grid>
                     <Grid item xs={6}>
@@ -284,7 +282,7 @@ const Register = () => {
                         name="email"
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    {/* <Grid item xs={6}>
                       <label>Password</label>
                       <Field
                         InputProps={{
@@ -316,8 +314,8 @@ const Register = () => {
                         component="div"
                         name="password"
                       />
-                    </Grid>
-                    <Grid item xs={6}>
+                    </Grid> */}
+                    <Grid item xs={6}> 
                       <label>Phone Number</label>
                       <Field name="phoneNumber" as={TextField} fullWidth />
                       <ErrorMessage
