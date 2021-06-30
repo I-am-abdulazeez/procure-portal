@@ -1,17 +1,18 @@
-import { useState } from "react";
-import Logo from "../logo.png";
-import { Formik, Form, Field } from "formik";
 import {
   Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  makeStyles,
   TextField,
   Typography,
-  makeStyles,
-  Button,
-  InputAdornment,
-  IconButton,
 } from "@material-ui/core";
+import { Field, Form, Formik } from "formik";
+import { useState } from "react";
+import { RiArrowLeftLine, RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 import { object, string } from "yup";
-import { RiEyeFill, RiEyeCloseFill, RiArrowLeftLine } from "react-icons/ri";
+import Logo from "../logo.png";
 
 const validationSchema = object().shape({
   username: string().required("username is required!"),
@@ -23,8 +24,17 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
     textAlign: "center",
   },
+  brandColor: {
+    color: theme.palette.primary.main,
+  },
+  clearUnderline: {
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
   textField: {
-    marginBottom: "30px",
+    marginBottom: "10px",
   },
 }));
 
@@ -44,9 +54,9 @@ const Login = () => {
         </IconButton>
       </Box>
       <div className="login">
-        <Box width="280px" textAlign="center">
-          <Box textAlign="center" mb="1.3rem">
-            <img src={Logo} alt="Logo" width="150" />
+        <Box width="290px" textAlign="center">
+          <Box textAlign="center" mb="1rem">
+            <img src={Logo} alt="Logo" width="130" />
           </Box>
 
           <Box>
@@ -101,16 +111,28 @@ const Login = () => {
                     />
                   </Box>
 
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    disableElevation
-                    type="submit"
-                  >
-                    Sign in
-                  </Button>
-                  <div></div>
+                  <Box mt={2}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      disableElevation
+                      type="submit"
+                    >
+                      Sign in
+                    </Button>
+                  </Box>
+                  <Box mt={3}>
+                    <Typography>
+                      I don't have an account?
+                      <Link
+                        to="/register"
+                        className={`${classes.brandColor} ${classes.clearUnderline}`}
+                      >
+                        {""} Create here
+                      </Link>
+                    </Typography>
+                  </Box>
                 </Form>
               )}
             </Formik>

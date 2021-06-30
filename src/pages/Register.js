@@ -1,7 +1,8 @@
 import {
   Box,
+  Button,
   Grid,
-  IconButton,
+  Hidden,
   InputAdornment,
   makeStyles,
   TextField,
@@ -9,8 +10,9 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import { ErrorMessage, Field } from "formik";
-// import { useState } from "react"; , RiEyeCloseFill, RiEyeFill
-import { RiArrowLeftLine } from "react-icons/ri";
+import { useState } from "react";
+import { RiArrowLeftLine, RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 import SignUpImage from ".././signup.svg";
 import FormikStepper from "../components/FormikStepper";
@@ -20,12 +22,21 @@ const useStyles = makeStyles((theme) => ({
   root: {
     color: "#303952",
   },
+  brandColor: {
+    color: theme.palette.primary.main,
+  },
   title: {
     marginBottom: theme.spacing(4),
     textAlign: "center",
   },
   textField: {
     marginBottom: "30px",
+  },
+  clearUnderline: {
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
   },
   bold: {
     fontWeight: "bold",
@@ -47,75 +58,82 @@ const useStyles = makeStyles((theme) => ({
     color: "#e74c3c",
     marginTop: ".5rem",
   },
+  boxWidth: {
+    width: "550px",
+    [theme.breakpoints.down("sm")]: {
+      width: "600px",
+    },
+  },
 }));
 
 const initialValues = {
   companyName: "",
-  vatRegNo: "",
+  vatRegNumber: "",
   taxIdNumber: "",
   companyDateOfReg: "",
   certOfInCorporationNo: "",
-  regOfficeAddress: "",
+  registeredOfficeAddress: "",
   state: "",
   phoneNumber: "",
   email: "",
-  // password: "",
-  // memoradum_ArticlesOfAssociation: "",
-  // certificateOfIncorporation: "",
-  // formCO7_PartcularsOfDirectors: "",
-  // vatRegistrationCertificate: "",
-  // taxClearanceCertificate: "",
+  password: "",
+  memoradum_ArticlesOfAssociation: [],
+  certificateOfIncorporation: [],
+  formCO7_PartcularsOfDirectors: [],
+  vatRegistrationCertificate: [],
+  taxClearanceCertificate: [],
 };
 
 const Register = () => {
   const classes = useStyles();
-  // const [showVal, setShowVal] = useState({ showPassword: false });
+  const [showVal, setShowVal] = useState({ showPassword: false });
 
-  // const sleep = (ms) => {
-  //   return new Promise((resolve) => setTimeout(resolve, ms));
-  // };
+  const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
 
   return (
     <div>
       <Grid container>
-        <Grid item xs={6}>
-          <Box bgcolor="#2980b9" height="100vh">
-            <Box textAlign="left">
-              <IconButton href="/">
-                <RiArrowLeftLine color="#fff" />
-              </IconButton>
-            </Box>
-            <Box
-              bgcolor="#2980b9"
-              height="90vh"
-              p={4}
-              display="flex"
-              justifyContent="space-around"
-              flexDirection="column"
-              alignItems="center"
-            >
-              <Box>
-                <Typography
-                  variant="h4"
-                  className={`${classes.mbSm} ${classes.whiteText}`}
-                >
-                  Register with us today!
-                </Typography>
-                <img src={SignUpImage} alt="sign-up" width="350" />
+        <Hidden smDown>
+          <Grid item xs={6}>
+            <Box bgcolor="#2980b9" height="100vh">
+              <Box
+                bgcolor="#2980b9"
+                height="100vh"
+                display="flex"
+                justifyContent="space-around"
+                flexDirection="column"
+                alignItems="center"
+              >
+                <Box>
+                  <Typography
+                    variant="h4"
+                    className={`${classes.mbSm} ${classes.whiteText}`}
+                  >
+                    Register with us today!
+                  </Typography>
+                  <img src={SignUpImage} alt="sign-up" width="350" />
+                </Box>
               </Box>
             </Box>
-          </Box>
-        </Grid>
-        <Grid item xs={6}>
+          </Grid>
+        </Hidden>
+        <Grid item xs={12} sm={12} md={6}>
           <Box
             height="100vh"
             bgcolor="#fff"
-            p={4}
             display="flex"
             alignItems="center"
+            flexDirection="column"
             justifyContent="center"
           >
-            <Box width="500px">
+            <Box textAlign="center" marginBottom="40px">
+              <Button href="/" startIcon={<RiArrowLeftLine />}>
+                Go back Home
+              </Button>
+            </Box>
+            <Box className={classes.boxWidth}>
               <Typography
                 variant="h5"
                 className={`${classes.title} ${classes.bold} ${classes.lineHeight}`}
@@ -126,7 +144,7 @@ const Register = () => {
                 initialValues={initialValues}
                 onSubmit={async (values, { setSubmitting }) => {
                   setSubmitting(true);
-                  const payload = {
+                  const newData = {
                     companyName: values.companyName,
                     vatRegNo: values.vatRegNo,
                     taxIdNumber: values.taxIdNumber,
@@ -134,23 +152,25 @@ const Register = () => {
                     certOfIncorporationNo: values.certOfInCorporationNo,
                     regOfficeAddress: values.regOfficeAddress,
                   };
-
+                  // await sleep(3000);
                   try {
-                    const APIURL ='http://192.168.0.52:7048/BC180/api/beta/companies(e80ce290-5dcc-eb11-817c-1c98ec2aab3b)/vendorRegistrations'; //process.env.API_URL;
-                    const res = await axios.post(APIURL, payload,
+                    const res = await axios.post(
+                      "http://192.168.0.52:7048/BC180/api/beta/companies(e80ce290-5dcc-eb11-817c-1c98ec2aab3b)/vendorRegistrations",
+                      newData,
                       {
-                        auth:{
-                          username: 'THL',//process.env.USERNAME,
-                          password: 'T@sting1'//process.env.PASSWORD,
-                        }
+                        auth: {
+                          username: "THL",
+                          password: "T@sting1",
+                        },
                       }
                     );
-                    console.log(res);
-                    // const data = res.data;
+                    const data = res.data;
                     setSubmitting(false);
+                    // alert(JSON.stringify(values, null, 2));
+                    console.log(data);
                   } catch (error) {
                     setSubmitting(false);
-                    console.log(error)
+                    console.log(error.response.data);
                   }
                 }}
               >
@@ -160,7 +180,7 @@ const Register = () => {
                     companyName: yup
                       .string()
                       .required("Company Name is required"),
-                    vatRegNo: yup.string().required("is a required field"),
+                    vatRegNumber: yup.string().required("is a required field"),
                     taxIdNumber: yup.string().required("is a required field"),
                     companyDateOfReg: yup
                       .string()
@@ -187,15 +207,15 @@ const Register = () => {
                     </Grid>
                     <Grid item xs={6}>
                       <label>VAT Reg No</label>
-                      <Field name="vatRegNo" as={TextField} fullWidth />
+                      <Field name="vatRegNumber" as={TextField} fullWidth />
                       <ErrorMessage
                         className={classes.error}
                         component="div"
-                        name="vatRegNo"
+                        name="vatRegNumber"
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <label>Tax ID Number</label>
+                      <label>Tax Id Number</label>
                       <Field name="taxIdNumber" as={TextField} fullWidth />
                       <ErrorMessage
                         className={classes.error}
@@ -204,7 +224,7 @@ const Register = () => {
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <label>Company's Date of Registration</label>
+                      <label>Company Date of Registration Date</label>
                       <Field
                         name="companyDateOfReg"
                         as={TextField}
@@ -235,7 +255,7 @@ const Register = () => {
                 <FormikStep
                   label="Company Registration Details"
                   validationSchema={yup.object({
-                    regOfficeAddress: yup
+                    registeredOfficeAddress: yup
                       .string()
                       .required("Address is required"),
                     state: yup.string().required("State is required"),
@@ -244,24 +264,24 @@ const Register = () => {
                       .string()
                       .required()
                       .email("Email is baddly formatted!"),
-                    // password: yup
-                    //   .string()
-                    //   .required("password is required")
-                    //   .min(6, "Minimum of 6 characters"),
+                    password: yup
+                      .string()
+                      .required("password is required")
+                      .min(6, "Minimum of 6 characters"),
                   })}
                 >
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
-                      <label>Office Address</label>
+                      <label>Registered Office Address</label>
                       <Field
-                        name="regOfficeAddress"
+                        name="registeredOfficeAddress"
                         as={TextField}
                         fullWidth
                       />
                       <ErrorMessage
                         className={classes.error}
                         component="div"
-                        name="regOfficeAddress"
+                        name="registeredOfficeAddress"
                       />
                     </Grid>
                     <Grid item xs={6}>
@@ -282,7 +302,7 @@ const Register = () => {
                         name="email"
                       />
                     </Grid>
-                    {/* <Grid item xs={6}>
+                    <Grid item xs={6}>
                       <label>Password</label>
                       <Field
                         InputProps={{
@@ -314,8 +334,8 @@ const Register = () => {
                         component="div"
                         name="password"
                       />
-                    </Grid> */}
-                    <Grid item xs={6}> 
+                    </Grid>
+                    <Grid item xs={6}>
                       <label>Phone Number</label>
                       <Field name="phoneNumber" as={TextField} fullWidth />
                       <ErrorMessage
@@ -390,6 +410,17 @@ const Register = () => {
                   </Grid>
                 </FormikStep>
               </FormikStepper>
+            </Box>
+            <Box mt={3}>
+              <Typography>
+                Already have an account?
+                <Link
+                  to="/login"
+                  className={`${classes.brandColor} ${classes.clearUnderline}`}
+                >
+                  {""} Login here
+                </Link>
+              </Typography>
             </Box>
           </Box>
         </Grid>

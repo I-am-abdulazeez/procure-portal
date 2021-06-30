@@ -10,7 +10,7 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: "Open Sans",
+    fontFamily: "Poppins",
     fontSize: 12,
   },
 });

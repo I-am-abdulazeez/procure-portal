@@ -9,12 +9,12 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import Navbar from "../components/Navbar";
-import { RiDoorOpenLine } from "react-icons/ri";
 import { IoDuplicateOutline, IoKey, IoPerson } from "react-icons/io5";
+import { RiDoorOpenLine } from "react-icons/ri";
 import Typist from "react-typist";
 import { CallAOS } from "../components/Aos";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,8 +49,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     fontWeight: 400,
   },
-  bold: {
-    fontWeight: "bold",
+  semiBold: {
+    fontWeight: 400,
   },
   center: {
     textAlign: "center",
@@ -155,7 +155,7 @@ const Home = () => {
         </div>
       </Box>
 
-      <Box padding="2rem">
+      <Box paddingY="2rem">
         <Container>
           <Typography
             variant="h4"
@@ -208,7 +208,7 @@ const Home = () => {
                   <Typography
                     variant="body1"
                     style={{ color: "#7f8c8d" }}
-                    className={classes.bold}
+                    className={classes.semiBold}
                   >
                     Did you know petition submissions are currently online?
                   </Typography>
@@ -247,7 +247,7 @@ const Home = () => {
                   <Typography
                     variant="body1"
                     style={{ color: "#7f8c8d" }}
-                    className={classes.bold}
+                    className={classes.semiBold}
                   >
                     Are you a Vendor? Click Register to get started.
                   </Typography>
@@ -286,7 +286,7 @@ const Home = () => {
                   <Typography
                     variant="body1"
                     style={{ color: "#7f8c8d" }}
-                    className={classes.bold}
+                    className={classes.semiBold}
                   >
                     Are you a procurement officer? Update your profile now!
                   </Typography>
@@ -325,7 +325,7 @@ const Home = () => {
                   <Typography
                     variant="body1"
                     style={{ color: "#7f8c8d" }}
-                    className={classes.bold}
+                    className={classes.semiBold}
                   >
                     Report any suspicious procurement activity.
                   </Typography>
@@ -449,7 +449,7 @@ const Home = () => {
         d="flex"
         h="100vh"
         alignItems="center"
-        borderBottom="2px solid #bdc3c7"
+        borderBottom="1px solid #E2E8F0"
       >
         <Container>
           <Typography
