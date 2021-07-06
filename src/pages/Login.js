@@ -49,9 +49,9 @@ const Login = () => {
   return (
     <div>
       <Box bgcolor="#fff  ">
-        <IconButton href="/">
-          <RiArrowLeftLine />
-        </IconButton>
+        <Button href="/" startIcon={<RiArrowLeftLine />}>
+          Go home
+        </Button>
       </Box>
       <div className="login">
         <Box width="290px" textAlign="center">
@@ -61,7 +61,7 @@ const Login = () => {
 
           <Box>
             <Typography variant="h5" className={classes.title}>
-              Sign in your account
+              Welcome back,
             </Typography>
 
             <Formik

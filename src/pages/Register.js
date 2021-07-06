@@ -154,15 +154,15 @@ const Register = () => {
                   };
                   // await sleep(3000);
                   try {
-                    const res = await axios.post(
-                      "http://192.168.0.52:7048/BC180/api/beta/companies(e80ce290-5dcc-eb11-817c-1c98ec2aab3b)/vendorRegistrations",
-                      newData,
-                      {
-                        auth: {
-                          username: "THL",
-                          password: "T@sting1",
-                        },
-                      }
+                    const res = await axios.get(
+                      "http://192.168.0.52:8080/VendPortal/api/vendorReg",
+                      newData
+                      // {
+                      //   auth: {
+                      //     username: "THL",
+                      //     password: "T@sting1",
+                      //   },
+                      // }
                     );
                     const data = res.data;
                     setSubmitting(false);
