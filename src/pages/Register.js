@@ -155,7 +155,7 @@ const Register = () => {
                   // await sleep(3000);
                   try {
                     const res = await axios.get(
-                      "http://192.168.0.52:8080/VendPortal/api/vendorReg",
+                      "https://cors-anywhere-herokuapp.com/http://192.168.0.52:8080/VendPortal/api/vendorReg",
                       newData
                       // {
                       //   auth: {
