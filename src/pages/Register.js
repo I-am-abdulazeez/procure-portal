@@ -1,10 +1,14 @@
 import {
   Box,
   Button,
+  FormControl,
   Grid,
   Hidden,
   InputAdornment,
+  InputLabel,
   makeStyles,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -155,7 +159,7 @@ const Register = () => {
                   // await sleep(3000);
                   try {
                     const res = await axios.get(
-                      "https://cors-anywhere-herokuapp.com/http://192.168.0.52:8080/VendPortal/api/vendorReg",
+                      "http://192.168.0.52:8080/VendPortal/api/vendorReg",
                       newData
                       // {
                       //   auth: {
@@ -166,7 +170,7 @@ const Register = () => {
                     );
                     const data = res.data;
                     setSubmitting(false);
-                    // alert(JSON.stringify(values, null, 2));
+                    alert(JSON.stringify(values, null, 2));
                     console.log(data);
                   } catch (error) {
                     setSubmitting(false);
@@ -174,6 +178,75 @@ const Register = () => {
                   }
                 }}
               >
+                <FormikStep
+                  label="Vendor Information + Bank Details"
+                  validationSchema={yup.object({
+                    bankName: yup.string(),
+                    bankAccountNumber: yup.string().max(10),
+                    bankSortCode: yup.string(),
+                    bankAddress: yup.string(),
+                  })}
+                >
+                  <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <FormControl fullWidth>
+                        <InputLabel id="ventorType">
+                          What type of Vendor are you?
+                        </InputLabel>
+                        <Select name="" labelId="ventorType">
+                          <MenuItem value="Limited">Limited</MenuItem>
+                          <MenuItem value="Non-Limited">Non-Limited</MenuItem>
+                          <MenuItem value="International">
+                            International
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>Bank Name</label>
+                      <Field
+                        name="bankName"
+                        as={TextField}
+                        fullWidth
+                        label=""
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="bankName"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>Bank Account Number</label>
+                      <Field
+                        name="bankAccountNumber"
+                        as={TextField}
+                        fullWidth
+                        label=""
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="bankAccountNumber"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>Bank Sort Code</label>
+                      <Field
+                        name="bankSortCode"
+                        as={TextField}
+                        fullWidth
+                        label=""
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="bankSortCode"
+                      />
+                    </Grid>
+                  </Grid>
+                </FormikStep>
+
                 <FormikStep
                   label="Company Details"
                   validationSchema={yup.object({
@@ -257,7 +330,8 @@ const Register = () => {
                   validationSchema={yup.object({
                     registeredOfficeAddress: yup
                       .string()
-                      .required("Address is required"),
+                      .required("Address is required")
+                      .max(250, "Address must be at most 250 characters"),
                     state: yup.string().required("State is required"),
                     phoneNumber: yup.string().required("is a required field"),
                     email: yup
@@ -356,22 +430,22 @@ const Register = () => {
                     ),
                     certificateOfIncorporation: yup.array(
                       yup.object({
-                        url: yup.string().required(),
+                        url: yup.string(),
                       })
                     ),
                     formCO7_PartcularsOfDirectors: yup.array(
                       yup.object({
-                        url: yup.string().required(),
+                        url: yup.string(),
                       })
                     ),
                     vatRegistrationCertificate: yup.array(
                       yup.object({
-                        url: yup.string().required(),
+                        url: yup.string(),
                       })
                     ),
                     taxClearanceCertificate: yup.array(
                       yup.object({
-                        url: yup.string().required(),
+                        url: yup.string(),
                       })
                     ),
                   })}

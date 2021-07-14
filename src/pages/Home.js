@@ -7,13 +7,7 @@ import {
 } from "@material-ui/core";
 import { deepPurple } from "@material-ui/core/colors";
 import React from "react";
-import {
-  RiBook3Line,
-  RiBriefcase4Line,
-  RiHandCoinLine,
-  RiSendPlaneLine,
-} from "react-icons/ri";
-import SideNav from "../components/SideNav";
+import { RiBook3Line, RiHandCoinLine, RiSendPlaneLine } from "react-icons/ri";
 import TopNav from "../components/TopNav";
 
 const useStyles = makeStyles((theme) => ({
@@ -48,137 +42,132 @@ const Dashboard = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <Box height="100vh" component={Grid} container>
-        <Box component={Grid} item xs={2} className={classes.darkBg}>
-          <SideNav />
-        </Box>
-        <Box component={Grid} item xs={10} className={classes.lighBg}>
-          <TopNav />
-          <Box pt={3}>
-            <Container>
-              <Grid container spacing={3}>
-                <Grid item xs={3}>
+    <Box>
+      <TopNav />
+      <Box pt={3}>
+        <Container>
+          <Grid container spacing={3}>
+            <Grid item xs={4}>
+              <Box
+                bgcolor="white"
+                borderRadius="7px"
+                border="1.5px solid #EDF2F7"
+                p={2}
+              >
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography style={{ color: "#718096" }} variant="h6">
+                    Invoices
+                  </Typography>
                   <Box
-                    bgcolor="white"
-                    borderRadius="7px"
-                    border="1.5px solid #EDF2F7"
-                    p={2}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    p={1}
+                    borderRadius="6px"
+                    bgcolor="#C53030"
                   >
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Typography style={{ color: "#718096" }} variant="h6">
-                        Invoices
-                      </Typography>
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        p={1}
-                        borderRadius="6px"
-                        bgcolor="#C53030"
-                      >
-                        <RiBook3Line size="22px" color="#fff" />
-                      </Box>
-                    </Box>
-                    <Box>
-                      <Typography
-                        style={{
-                          fontWeight: "bold",
-                          color: "#2D3748",
-                          marginTop: "5px",
-                        }}
-                        variant="h4"
-                      >
-                        400
-                      </Typography>
-                    </Box>
+                    <RiBook3Line size="22px" color="#fff" />
                   </Box>
-                </Grid>
-                <Grid item xs={3}>
+                </Box>
+                <Box>
+                  <Typography
+                    style={{
+                      fontWeight: "bold",
+                      color: "#2D3748",
+                      marginTop: "5px",
+                    }}
+                    variant="h4"
+                  >
+                    400
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={4}>
+              <Box
+                bgcolor="white"
+                borderRadius="7px"
+                border="1.5px solid #EDF2F7"
+                p={2}
+              >
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography style={{ color: "#718096" }} variant="h6">
+                    Purchase Order
+                  </Typography>
                   <Box
-                    bgcolor="white"
-                    borderRadius="7px"
-                    border="1.5px solid #EDF2F7"
-                    p={2}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    p={1}
+                    borderRadius="6px"
+                    bgcolor="#38A169"
                   >
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Typography style={{ color: "#718096" }} variant="h6">
-                        Purchase Order
-                      </Typography>
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        p={1}
-                        borderRadius="6px"
-                        bgcolor="#38A169"
-                      >
-                        <RiHandCoinLine size="22px" color="#fff" />
-                      </Box>
-                    </Box>
-                    <Box>
-                      <Typography
-                        style={{
-                          fontWeight: "bold",
-                          color: "#2D3748",
-                          marginTop: "5px",
-                        }}
-                        variant="h4"
-                      >
-                        40
-                      </Typography>
-                    </Box>
+                    <RiHandCoinLine size="22px" color="#fff" />
                   </Box>
-                </Grid>
-                <Grid item xs={3}>
+                </Box>
+                <Box>
+                  <Typography
+                    style={{
+                      fontWeight: "bold",
+                      color: "#2D3748",
+                      marginTop: "5px",
+                    }}
+                    variant="h4"
+                  >
+                    40
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={4}>
+              <Box
+                bgcolor="white"
+                borderRadius="7px"
+                border="1.5px solid #EDF2F7"
+                p={2}
+              >
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography style={{ color: "#718096" }} variant="h6">
+                    Request for Quotation
+                  </Typography>
                   <Box
-                    bgcolor="white"
-                    borderRadius="7px"
-                    border="1.5px solid #EDF2F7"
-                    p={2}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    p={1}
+                    borderRadius="6px"
+                    bgcolor="#cd6133"
                   >
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Typography style={{ color: "#718096" }} variant="h6">
-                        Request for Quotation
-                      </Typography>
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        p={1}
-                        borderRadius="6px"
-                        bgcolor="#cd6133"
-                      >
-                        <RiSendPlaneLine size="22px" color="#fff" />
-                      </Box>
-                    </Box>
-                    <Box>
-                      <Typography
-                        style={{
-                          fontWeight: "bold",
-                          color: "#2D3748",
-                          marginTop: "5px",
-                        }}
-                        variant="h4"
-                      >
-                        150
-                      </Typography>
-                    </Box>
+                    <RiSendPlaneLine size="22px" color="#fff" />
                   </Box>
-                </Grid>
-                <Grid item xs={3}>
+                </Box>
+                <Box>
+                  <Typography
+                    style={{
+                      fontWeight: "bold",
+                      color: "#2D3748",
+                      marginTop: "5px",
+                    }}
+                    variant="h4"
+                  >
+                    150
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+            {/* <Grid item xs={3}>
                   <Box
                     bgcolor="white"
                     borderRadius="7px"
@@ -217,20 +206,18 @@ const Dashboard = () => {
                       </Typography>
                     </Box>
                   </Box>
-                </Grid>
-              </Grid>
-            </Container>
-          </Box>
+                </Grid> */}
+          </Grid>
+        </Container>
+      </Box>
 
-          {/* Next List After Card */}
-          <Box mt={3}>
+      {/* Next List After Card */}
+      {/* <Box mt={3}>
             <Container>
               <Typography variant="h5">List</Typography>
             </Container>
-          </Box>
-        </Box>
-      </Box>
-    </div>
+          </Box> */}
+    </Box>
   );
 };
 

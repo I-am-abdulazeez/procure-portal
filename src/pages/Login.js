@@ -10,7 +10,7 @@ import {
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { RiArrowLeftLine, RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { object, string } from "yup";
 import Logo from "../logo.png";
 
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [showPassword, setShowPassword] = useState({ password: false });
 
   const handleClickShowPassword = () => {
@@ -67,8 +68,14 @@ const Login = () => {
             <Formik
               initialValues={{ username: "", password: "" }}
               validationSchema={validationSchema}
+              onSubmit={(data, { setSubmitting }) => {
+                setSubmitting(true);
+                setTimeout(() => {
+                  history.push("/home");
+                }, 2000);
+              }}
             >
-              {({ values, touched }) => (
+              {({ values, touched, isSubmitting }) => (
                 <Form>
                   <Box>
                     <Field
@@ -117,6 +124,7 @@ const Login = () => {
                       variant="contained"
                       color="primary"
                       disableElevation
+                      disabled={isSubmitting}
                       type="submit"
                     >
                       Sign in

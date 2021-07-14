@@ -9,7 +9,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import { IoDuplicateOutline, IoKey, IoPerson } from "react-icons/io5";
+import { IoDuplicateOutline, IoKey } from "react-icons/io5";
 import { RiDoorOpenLine } from "react-icons/ri";
 import Typist from "react-typist";
 import { CallAOS } from "../components/Aos";
@@ -161,10 +161,10 @@ const Home = () => {
             variant="h4"
             className={`${classes.bold} ${classes.center} ${classes.mbSm}`}
           >
-            What We do...
+            Welcome
           </Typography>
 
-          <Typography variant="h6" className={classes.text}>
+          {/* <Typography variant="h6" className={classes.text}>
             Procurement Officers are responsible for evaluating suppliers,
             products, and services, negotiating contracts, and ensuring that
             approved purchases are cost-efficient and of high quality. Following
@@ -176,14 +176,14 @@ const Home = () => {
             etc. Maintaining good supplier relations and negotiating contracts.
             Researching and evaluating prospective suppliers. Preparing budgets,
             cost analyses, and reports.
-          </Typography>
+          </Typography> */}
         </Container>
       </Box>
 
       <Box paddingY="2rem">
         <Container>
           <Grid container spacing={4}>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <Card
                 variant="outlined"
                 className={`${classes.card}`}
@@ -221,7 +221,7 @@ const Home = () => {
               </Card>
             </Grid>
 
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <Card
                 elevation={0}
                 data-aos="fade-up"
@@ -260,7 +260,7 @@ const Home = () => {
               </Card>
             </Grid>
 
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <Card
                 elevation={0}
                 data-aos="fade-up"
@@ -297,9 +297,9 @@ const Home = () => {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid>
+            </Grid> */}
 
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <Card
                 elevation={0}
                 data-aos="fade-up"
@@ -389,7 +389,7 @@ const Home = () => {
                 </Card>
               </Grid>
 
-              <Grid item xs={6}>
+              {/* <Grid item xs={6}>
                 <Card
                   data-aos="zoom-in-up"
                   className={classes.grey}
@@ -404,7 +404,7 @@ const Home = () => {
                     </Typography>
                   </CardContent>
                 </Card>
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={6}>
                 <Card
@@ -423,7 +423,7 @@ const Home = () => {
                 </Card>
               </Grid>
 
-              <Grid item xs={6}>
+              {/* <Grid item xs={6}>
                 <Card
                   data-aos="zoom-in-up"
                   className={classes.grey}
@@ -438,7 +438,7 @@ const Home = () => {
                     </Typography>
                   </CardContent>
                 </Card>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Box>
         </Container>
