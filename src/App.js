@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import DashboardLayout from "./components/DashboardLayout";
-import MyAccount from "./components/MyAccount";
+import MyAccount from "./pages/MyAccount";
 import Dashboard from "./pages/Home";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Settings from "./pages/Settings";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <DashboardLayout>
             <Route path="/home" component={Dashboard} exact />
             <Route path="/account" component={MyAccount} exact />
+            <Route path="/settings" component={Settings} exact />
           </DashboardLayout>
         </Switch>
       </Router>

@@ -37,7 +37,11 @@ const TopNav = () => {
       >
         <div>
           <Typography variant="h5" style={{ fontWeight: "500" }}>
-            {location.pathname === "/home" ? "Dashboard" : "My Account"}
+            {location.pathname === "/home"
+              ? "Dashboard"
+              : location.pathname === "/account"
+              ? "My Account"
+              : "Settings"}
           </Typography>
         </div>
         <Box display="flex" flexDirection="row" gridGap="1em">

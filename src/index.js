@@ -1,13 +1,12 @@
+import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import "animate.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { ThemeProvider, CssBaseline } from "@material-ui/core";
-import theme from "./theme";
 import { BrowserRouter as Router } from "react-router-dom";
-
-import "animate.css";
+import App from "./App";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import theme from "./theme";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -4,7 +4,6 @@ import {
   FormControl,
   Grid,
   Hidden,
-  InputAdornment,
   InputLabel,
   makeStyles,
   MenuItem,
@@ -12,10 +11,9 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import axios from "axios";
 import { ErrorMessage, Field } from "formik";
 import { useState } from "react";
-import { RiArrowLeftLine, RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
+import { RiArrowLeftLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import SignUpImage from ".././signup.svg";
@@ -72,8 +70,10 @@ const useStyles = makeStyles((theme) => ({
 
 const initialValues = {
   companyName: "",
+  companyRegistrationNumber: "",
   vatRegNumber: "",
   taxIdNumber: "",
+  country: "",
   companyDateOfReg: "",
   certOfInCorporationNo: "",
   registeredOfficeAddress: "",
@@ -81,11 +81,16 @@ const initialValues = {
   phoneNumber: "",
   email: "",
   password: "",
-  memoradum_ArticlesOfAssociation: [],
-  certificateOfIncorporation: [],
-  formCO7_PartcularsOfDirectors: [],
-  vatRegistrationCertificate: [],
-  taxClearanceCertificate: [],
+  bankName: "",
+  bankAccountNumber: "",
+  bankSortCode: "",
+  bankAddress: "",
+  vendorType: "",
+  // memoradum_ArticlesOfAssociation: [],
+  // certificateOfIncorporation: [],
+  // formCO7_PartcularsOfDirectors: [],
+  // vatRegistrationCertificate: [],
+  // taxClearanceCertificate: [],
 };
 
 const Register = () => {
@@ -148,43 +153,53 @@ const Register = () => {
                 initialValues={initialValues}
                 onSubmit={async (values, { setSubmitting }) => {
                   setSubmitting(true);
-                  const newData = {
-                    companyName: values.companyName,
-                    vatRegNo: values.vatRegNo,
-                    taxIdNumber: values.taxIdNumber,
-                    companyDateRegDate: values.companyDateOfReg,
-                    certOfIncorporationNo: values.certOfInCorporationNo,
-                    regOfficeAddress: values.regOfficeAddress,
-                  };
+                  // const newData = {
+                  //   companyName: values.companyName,
+                  //   vatRegNo: values.vatRegNo,
+                  //   taxIdNumber: values.taxIdNumber,
+                  //   companyDateRegDate: values.companyDateOfReg,
+                  //   certOfIncorporationNo: values.certOfInCorporationNo,
+                  //   regOfficeAddress: values.regOfficeAddress,
+                  // };
+                  alert(JSON.stringify(values, null, 2));
+                  console.log(values);
                   // await sleep(3000);
-                  try {
-                    const res = await axios.get(
-                      "http://192.168.0.52:8080/VendPortal/api/vendorReg",
-                      newData
-                      // {
-                      //   auth: {
-                      //     username: "THL",
-                      //     password: "T@sting1",
-                      //   },
-                      // }
-                    );
-                    const data = res.data;
-                    setSubmitting(false);
-                    alert(JSON.stringify(values, null, 2));
-                    console.log(data);
-                  } catch (error) {
-                    setSubmitting(false);
-                    console.log(error.response.data);
-                  }
+                  // try {
+                  //   const res = await axios.get(
+                  //     "http://192.168.0.52:8080/VendPortal/api/vendorReg",
+                  //     newData
+                  //     // {
+                  //     //   auth: {
+                  //     //     username: "THL",
+                  //     //     password: "T@sting1",
+                  //     //   },
+                  //     // }
+                  //   );
+                  //   const data = res.data;
+                  //   setSubmitting(false);
+                  //   alert(JSON.stringify(values, null, 2));
+                  //   console.log(data);
+                  // } catch (error) {
+                  //   setSubmitting(false);
+                  //   console.log(error.response.data);
+                  // }
                 }}
               >
                 <FormikStep
-                  label="Vendor Information + Bank Details"
+                  label="Company Registration Details"
                   validationSchema={yup.object({
-                    bankName: yup.string(),
-                    bankAccountNumber: yup.string().max(10),
-                    bankSortCode: yup.string(),
-                    bankAddress: yup.string(),
+                    companyName: yup
+                      .string()
+                      .required("Company Name is required"),
+                    companyRegistrationNumber: yup.string().required(),
+                    vatRegNumber: yup.string().required("is a required field"),
+                    taxIdNumber: yup.string().required("is a required field"),
+                    companyDateOfReg: yup
+                      .string()
+                      .required("is a required field"),
+                    certOfInCorporationNo: yup
+                      .string()
+                      .required("is a required field"),
                   })}
                 >
                   <Grid container spacing={2}>
@@ -193,15 +208,211 @@ const Register = () => {
                         <InputLabel id="ventorType">
                           What type of Vendor are you?
                         </InputLabel>
-                        <Select name="" labelId="ventorType">
-                          <MenuItem value="Limited">Limited</MenuItem>
-                          <MenuItem value="Non-Limited">Non-Limited</MenuItem>
+                        <Select name="vendorType" labelId="ventorType">
+                          <MenuItem value="Limited">
+                            Local Vendor Limited
+                          </MenuItem>
+                          <MenuItem value="Non-Limited">
+                            Local Vendor (Non-Limited)
+                          </MenuItem>
                           <MenuItem value="International">
-                            International
+                            International Vendor
                           </MenuItem>
                         </Select>
                       </FormControl>
                     </Grid>
+                    <Grid item xs={6}>
+                      <label>Company name</label>
+                      <Field
+                        name="companyName"
+                        as={TextField}
+                        fullWidth
+                        label=""
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="companyName"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>Registration No</label>
+                      <Field
+                        name="companyRegistrationNumber"
+                        as={TextField}
+                        fullWidth
+                        label=""
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="companyRegistrationNumber"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>Tax Id Number</label>
+                      <Field name="taxIdNumber" as={TextField} fullWidth />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="taxIdNumber"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>VAT Reg No</label>
+                      <Field name="vatRegNumber" as={TextField} fullWidth />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="vatRegNumber"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>Certificate of Incorporation No</label>
+                      <Field
+                        name="certOfInCorporationNo"
+                        as={TextField}
+                        fullWidth
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="certOfInCorporationNo"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>Company Date of Registration Date</label>
+                      <Field
+                        name="companyDateOfReg"
+                        as={TextField}
+                        fullWidth
+                        type="date"
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="companyDateOfReg"
+                      />
+                    </Grid>
+                  </Grid>
+                </FormikStep>
+
+                <FormikStep
+                  label="Company Details"
+                  validationSchema={yup.object({
+                    registeredOfficeAddress: yup
+                      .string()
+                      .required("Address is required")
+                      .max(250, "Address must be at most 250 characters"),
+                    state: yup.string().required("State is required"),
+                    country: yup.string().required("Country is required"),
+                    phoneNumber: yup.string().required("is a required field"),
+                    email: yup
+                      .string()
+                      .required()
+                      .email("Email is baddly formatted!"),
+                    // password: yup
+                    //   .string()
+                    //   .required("password is required")
+                    //   .min(6, "Minimum of 6 characters"),
+                  })}
+                >
+                  <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <label>Registered Office Address</label>
+                      <Field
+                        name="registeredOfficeAddress"
+                        as={TextField}
+                        fullWidth
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="registeredOfficeAddress"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>State</label>
+                      <Field name="state" as={TextField} fullWidth />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="state"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>Country</label>
+                      <Field name="country" as={TextField} fullWidth />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="country"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label>Email Address</label>
+                      <Field name="email" as={TextField} fullWidth />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="email"
+                      />
+                    </Grid>
+                    {/* <Grid item xs={6}>
+                      <label>Password</label>
+                      <Field
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment
+                              onClick={() =>
+                                setShowVal({
+                                  ...showVal,
+                                  showPassword: !showVal.showPassword,
+                                })
+                              }
+                              position="end"
+                            >
+                              {showVal.showPassword ? (
+                                <RiEyeFill />
+                              ) : (
+                                <RiEyeCloseFill />
+                              )}
+                            </InputAdornment>
+                          ),
+                        }}
+                        type={showVal.showPassword ? "text" : "password"}
+                        name="password"
+                        as={TextField}
+                        fullWidth
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="password"
+                      />
+                    </Grid> */}
+                    <Grid item xs={6}>
+                      <label>Phone Number</label>
+                      <Field name="phoneNumber" as={TextField} fullWidth />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="phoneNumber"
+                      />
+                    </Grid>
+                  </Grid>
+                </FormikStep>
+
+                <FormikStep
+                  label="Bank Registration Details"
+                  validationSchema={yup.object({
+                    bankName: yup.string(),
+                    bankAccountNumber: yup.string().max(10),
+                    bankSortCode: yup.string(),
+                    bankAddress: yup.string(),
+                  })}
+                >
+                  <Grid container spacing={2}>
                     <Grid item xs={6}>
                       <label>Bank Name</label>
                       <Field
@@ -244,30 +455,10 @@ const Register = () => {
                         name="bankSortCode"
                       />
                     </Grid>
-                  </Grid>
-                </FormikStep>
-
-                <FormikStep
-                  label="Company Details"
-                  validationSchema={yup.object({
-                    companyName: yup
-                      .string()
-                      .required("Company Name is required"),
-                    vatRegNumber: yup.string().required("is a required field"),
-                    taxIdNumber: yup.string().required("is a required field"),
-                    companyDateOfReg: yup
-                      .string()
-                      .required("is a required field"),
-                    certOfInCorporationNo: yup
-                      .string()
-                      .required("is a required field"),
-                  })}
-                >
-                  <Grid container spacing={2}>
                     <Grid item xs={6}>
-                      <label>Company name</label>
+                      <label>Bank Address</label>
                       <Field
-                        name="companyName"
+                        name="bankAddress"
                         as={TextField}
                         fullWidth
                         label=""
@@ -275,151 +466,12 @@ const Register = () => {
                       <ErrorMessage
                         className={classes.error}
                         component="div"
-                        name="companyName"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <label>VAT Reg No</label>
-                      <Field name="vatRegNumber" as={TextField} fullWidth />
-                      <ErrorMessage
-                        className={classes.error}
-                        component="div"
-                        name="vatRegNumber"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <label>Tax Id Number</label>
-                      <Field name="taxIdNumber" as={TextField} fullWidth />
-                      <ErrorMessage
-                        className={classes.error}
-                        component="div"
-                        name="taxIdNumber"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <label>Company Date of Registration Date</label>
-                      <Field
-                        name="companyDateOfReg"
-                        as={TextField}
-                        fullWidth
-                        type="date"
-                      />
-                      <ErrorMessage
-                        className={classes.error}
-                        component="div"
-                        name="companyDateOfReg"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <label>Certificate of Incorporation No</label>
-                      <Field
-                        name="certOfInCorporationNo"
-                        as={TextField}
-                        fullWidth
-                      />
-                      <ErrorMessage
-                        className={classes.error}
-                        component="div"
-                        name="certOfInCorporationNo"
+                        name="bankAddress"
                       />
                     </Grid>
                   </Grid>
                 </FormikStep>
-                <FormikStep
-                  label="Company Registration Details"
-                  validationSchema={yup.object({
-                    registeredOfficeAddress: yup
-                      .string()
-                      .required("Address is required")
-                      .max(250, "Address must be at most 250 characters"),
-                    state: yup.string().required("State is required"),
-                    phoneNumber: yup.string().required("is a required field"),
-                    email: yup
-                      .string()
-                      .required()
-                      .email("Email is baddly formatted!"),
-                    password: yup
-                      .string()
-                      .required("password is required")
-                      .min(6, "Minimum of 6 characters"),
-                  })}
-                >
-                  <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      <label>Registered Office Address</label>
-                      <Field
-                        name="registeredOfficeAddress"
-                        as={TextField}
-                        fullWidth
-                      />
-                      <ErrorMessage
-                        className={classes.error}
-                        component="div"
-                        name="registeredOfficeAddress"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <label>State</label>
-                      <Field name="state" as={TextField} fullWidth />
-                      <ErrorMessage
-                        className={classes.error}
-                        component="div"
-                        name="state"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <label>Email Address</label>
-                      <Field name="email" as={TextField} fullWidth />
-                      <ErrorMessage
-                        className={classes.error}
-                        component="div"
-                        name="email"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <label>Password</label>
-                      <Field
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment
-                              onClick={() =>
-                                setShowVal({
-                                  ...showVal,
-                                  showPassword: !showVal.showPassword,
-                                })
-                              }
-                              position="end"
-                            >
-                              {showVal.showPassword ? (
-                                <RiEyeFill />
-                              ) : (
-                                <RiEyeCloseFill />
-                              )}
-                            </InputAdornment>
-                          ),
-                        }}
-                        type={showVal.showPassword ? "text" : "password"}
-                        name="password"
-                        as={TextField}
-                        fullWidth
-                      />
-                      <ErrorMessage
-                        className={classes.error}
-                        component="div"
-                        name="password"
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <label>Phone Number</label>
-                      <Field name="phoneNumber" as={TextField} fullWidth />
-                      <ErrorMessage
-                        className={classes.error}
-                        component="div"
-                        name="phoneNumber"
-                      />
-                    </Grid>
-                  </Grid>
-                </FormikStep>
+
                 <FormikStep
                   label="File Attachments"
                   validationSchema={yup.object({

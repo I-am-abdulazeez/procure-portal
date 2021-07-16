@@ -7,7 +7,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import React from "react";
-import { RiDashboard2Line, RiUserLine } from "react-icons/ri";
+import { RiDashboard2Line, RiSettings2Line, RiUserLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 import Logo from "../logo.png";
 
@@ -59,6 +59,21 @@ const SideNav = () => {
               <RiUserLine size="20px" color="#fff" />
             </ListItemIcon>
             <ListItemText primary="My Account" />
+          </ListItem>
+
+          <ListItem
+            button
+            component={NavLink}
+            activeStyle={{
+              background: "#1A202C",
+            }}
+            className={` ${classes.sentenceCase} ${classes.whiteText}`}
+            to="/settings"
+          >
+            <ListItemIcon>
+              <RiSettings2Line size="20px" color="#fff" />
+            </ListItemIcon>
+            <ListItemText primary="Settings" />
           </ListItem>
         </List>
       </Box>
