@@ -11,6 +11,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import axios from "axios";
 import { ErrorMessage, Field } from "formik";
 import { useState } from "react";
 import { RiArrowLeftLine } from "react-icons/ri";
@@ -153,36 +154,48 @@ const Register = () => {
                 initialValues={initialValues}
                 onSubmit={async (values, { setSubmitting }) => {
                   setSubmitting(true);
-                  // const newData = {
-                  //   companyName: values.companyName,
-                  //   vatRegNo: values.vatRegNo,
-                  //   taxIdNumber: values.taxIdNumber,
-                  //   companyDateRegDate: values.companyDateOfReg,
-                  //   certOfIncorporationNo: values.certOfInCorporationNo,
-                  //   regOfficeAddress: values.regOfficeAddress,
-                  // };
+                  const newData = {
+                    companyName: values.companyName,
+                    vatRegNo: values.vatRegNumber,
+                    taxIdNumber: values.taxIdNumber,
+                    companyDateRegDate: values.companyDateOfReg,
+                    certOfIncorporationNo: values.certOfInCorporationNo,
+                    regOfficeAddress: values.registeredOfficeAddress,
+                    state: values.state,
+                    emailAddress: values.email,
+                    phoneNumber: values.phoneNumber,
+                    memArticlesOfAssocLink:
+                      values.memoradum_ArticlesOfAssociation[0].url,
+                    certOfIncorporationLink:
+                      values.certificateOfIncorporation[0].url,
+                    cO7PartOfDirectorsLink:
+                      values.formCO7_PartcularsOfDirectors[0].url,
+                    vatRegistrationCertLink:
+                      values.vatRegistrationCertificate[0].url,
+                    taxClearanceCertLink: values.taxClearanceCertificate[0].url,
+                  };
                   alert(JSON.stringify(values, null, 2));
                   console.log(values);
-                  // await sleep(3000);
-                  // try {
-                  //   const res = await axios.get(
-                  //     "http://192.168.0.52:8080/VendPortal/api/vendorReg",
-                  //     newData
-                  //     // {
-                  //     //   auth: {
-                  //     //     username: "THL",
-                  //     //     password: "T@sting1",
-                  //     //   },
-                  //     // }
-                  //   );
-                  //   const data = res.data;
-                  //   setSubmitting(false);
-                  //   alert(JSON.stringify(values, null, 2));
-                  //   console.log(data);
-                  // } catch (error) {
-                  //   setSubmitting(false);
-                  //   console.log(error.response.data);
-                  // }
+                  await sleep(3000);
+                  try {
+                    const res = await axios.post(
+                      "/VendPortal/api/vendorReg",
+                      newData
+                      // {
+                      //   auth: {
+                      //     username: "THL",
+                      //     password: "T@sting1",
+                      //   },
+                      // }
+                    );
+                    const data = res.data;
+                    setSubmitting(false);
+                    alert(JSON.stringify(values, null, 2));
+                    console.log(data);
+                  } catch (error) {
+                    setSubmitting(false);
+                    console.log(error.response.data);
+                  }
                 }}
               >
                 <FormikStep
@@ -474,33 +487,33 @@ const Register = () => {
 
                 <FormikStep
                   label="File Attachments"
-                  validationSchema={yup.object({
-                    memoradum_ArticlesOfAssociation: yup.array(
-                      yup.object({
-                        url: yup.string().required(),
-                      })
-                    ),
-                    certificateOfIncorporation: yup.array(
-                      yup.object({
-                        url: yup.string(),
-                      })
-                    ),
-                    formCO7_PartcularsOfDirectors: yup.array(
-                      yup.object({
-                        url: yup.string(),
-                      })
-                    ),
-                    vatRegistrationCertificate: yup.array(
-                      yup.object({
-                        url: yup.string(),
-                      })
-                    ),
-                    taxClearanceCertificate: yup.array(
-                      yup.object({
-                        url: yup.string(),
-                      })
-                    ),
-                  })}
+                  // validationSchema={yup.object({
+                  //   memoradum_ArticlesOfAssociation: yup.array(
+                  //     yup.object({
+                  //       url: yup.string().required(),
+                  //     })
+                  //   ),
+                  //   certificateOfIncorporation: yup.array(
+                  //     yup.object({
+                  //       url: yup.string(),
+                  //     })
+                  //   ),
+                  //   formCO7_PartcularsOfDirectors: yup.array(
+                  //     yup.object({
+                  //       url: yup.string(),
+                  //     })
+                  //   ),
+                  //   vatRegistrationCertificate: yup.array(
+                  //     yup.object({
+                  //       url: yup.string(),
+                  //     })
+                  //   ),
+                  //   taxClearanceCertificate: yup.array(
+                  //     yup.object({
+                  //       url: yup.string(),
+                  //     })
+                  //   ),
+                  // })}
                 >
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
