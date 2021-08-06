@@ -1,0 +1,72 @@
+                  // validationSchema={yup.object({
+                  //   memoradum_ArticlesOfAssociation: yup.array(
+                  //     yup.object({
+                  //       url: yup.string().required(),
+                  //     })
+                  //   ),
+                  //   certificateOfIncorporation: yup.array(
+                  //     yup.object({
+                  //       url: yup.string(),
+                  //     })
+                  //   ),
+                  //   formCO7_PartcularsOfDirectors: yup.array(
+                  //     yup.object({
+                  //       url: yup.string(),
+                  //     })
+                  //   ),
+                  //   vatRegistrationCertificate: yup.array(
+                  //     yup.object({
+                  //       url: yup.string(),
+                  //     })
+                  //   ),
+                  //   taxClearanceCertificate: yup.array(
+                  //     yup.object({
+                  //       url: yup.string(),
+                  //     })
+                  //   ),
+                  // })}
+
+
+
+                                      {/* <Grid item xs={6}>
+                      <label>Password</label>
+                      <Field
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment
+                              onClick={() =>
+                                setShowVal({
+                                  ...showVal,
+                                  showPassword: !showVal.showPassword,
+                                })
+                              }
+                              position="end"
+                            >
+                              {showVal.showPassword ? (
+                                <RiEyeFill />
+                              ) : (
+                                <RiEyeCloseFill />
+                              )}
+                            </InputAdornment>
+                          ),
+                        }}
+                        type={showVal.showPassword ? "text" : "password"}
+                        name="password"
+                        as={TextField}
+                        fullWidth
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="password"
+                      />
+                    </Grid> */}
+
+                                      alert(JSON.stringify(values, null, 2));
+                  console.log(values);
+
+
+                                      // password: yup
+                    //   .string()
+                    //   .required("password is required")
+                    //   .min(6, "Minimum of 6 characters"),

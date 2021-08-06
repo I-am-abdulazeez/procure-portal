@@ -13,9 +13,9 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import { ErrorMessage, Field } from "formik";
-import { useState } from "react";
 import { RiArrowLeftLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import SignUpImage from ".././signup.svg";
 import FormikStepper from "../components/FormikStepper";
@@ -87,16 +87,17 @@ const initialValues = {
   bankSortCode: "",
   bankAddress: "",
   vendorType: "",
-  // memoradum_ArticlesOfAssociation: [],
-  // certificateOfIncorporation: [],
-  // formCO7_PartcularsOfDirectors: [],
-  // vatRegistrationCertificate: [],
-  // taxClearanceCertificate: [],
+  memoradum_ArticlesOfAssociation: "",
+  certificateOfIncorporation: "",
+  formCO7_PartcularsOfDirectors: "",
+  vatRegistrationCertificate: "",
+  taxClearanceCertificate: "",
 };
 
 const Register = () => {
   const classes = useStyles();
-  const [showVal, setShowVal] = useState({ showPassword: false });
+  const history = useHistory();
+  // const [showVal, setShowVal] = useState({ showPassword: false });
 
   const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -174,27 +175,30 @@ const Register = () => {
                       values.vatRegistrationCertificate[0].url,
                     taxClearanceCertLink: values.taxClearanceCertificate[0].url,
                   };
-                  alert(JSON.stringify(values, null, 2));
-                  console.log(values);
+                  console.log(newData);
                   await sleep(3000);
                   try {
                     const res = await axios.post(
                       "/VendPortal/api/vendorReg",
                       newData
-                      // {
-                      //   auth: {
-                      //     username: "THL",
-                      //     password: "T@sting1",
-                      //   },
-                      // }
                     );
                     const data = res.data;
                     setSubmitting(false);
-                    alert(JSON.stringify(values, null, 2));
                     console.log(data);
+                    toast.success(`${data.message}`, {
+                      className: "toast",
+                      position: "bottom-center",
+                    });
+                    setTimeout(() => {
+                      history.push("/login");
+                    }, 2000);
                   } catch (error) {
                     setSubmitting(false);
                     console.log(error.response.data);
+                    toast.error(`${error.response.data.message}`, {
+                      className: "toast",
+                      position: "bottom-center",
+                    });
                   }
                 }}
               >
@@ -324,10 +328,6 @@ const Register = () => {
                       .string()
                       .required()
                       .email("Email is baddly formatted!"),
-                    // password: yup
-                    //   .string()
-                    //   .required("password is required")
-                    //   .min(6, "Minimum of 6 characters"),
                   })}
                 >
                   <Grid container spacing={2}>
@@ -371,39 +371,7 @@ const Register = () => {
                         name="email"
                       />
                     </Grid>
-                    {/* <Grid item xs={6}>
-                      <label>Password</label>
-                      <Field
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment
-                              onClick={() =>
-                                setShowVal({
-                                  ...showVal,
-                                  showPassword: !showVal.showPassword,
-                                })
-                              }
-                              position="end"
-                            >
-                              {showVal.showPassword ? (
-                                <RiEyeFill />
-                              ) : (
-                                <RiEyeCloseFill />
-                              )}
-                            </InputAdornment>
-                          ),
-                        }}
-                        type={showVal.showPassword ? "text" : "password"}
-                        name="password"
-                        as={TextField}
-                        fullWidth
-                      />
-                      <ErrorMessage
-                        className={classes.error}
-                        component="div"
-                        name="password"
-                      />
-                    </Grid> */}
+
                     <Grid item xs={6}>
                       <label>Phone Number</label>
                       <Field name="phoneNumber" as={TextField} fullWidth />
@@ -485,36 +453,7 @@ const Register = () => {
                   </Grid>
                 </FormikStep>
 
-                <FormikStep
-                  label="File Attachments"
-                  // validationSchema={yup.object({
-                  //   memoradum_ArticlesOfAssociation: yup.array(
-                  //     yup.object({
-                  //       url: yup.string().required(),
-                  //     })
-                  //   ),
-                  //   certificateOfIncorporation: yup.array(
-                  //     yup.object({
-                  //       url: yup.string(),
-                  //     })
-                  //   ),
-                  //   formCO7_PartcularsOfDirectors: yup.array(
-                  //     yup.object({
-                  //       url: yup.string(),
-                  //     })
-                  //   ),
-                  //   vatRegistrationCertificate: yup.array(
-                  //     yup.object({
-                  //       url: yup.string(),
-                  //     })
-                  //   ),
-                  //   taxClearanceCertificate: yup.array(
-                  //     yup.object({
-                  //       url: yup.string(),
-                  //     })
-                  //   ),
-                  // })}
-                >
+                <FormikStep label="File Attachments">
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
                       <UploadField
