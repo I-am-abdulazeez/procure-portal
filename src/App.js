@@ -4,12 +4,16 @@ import MyAccount from "./pages/MyAccount";
 import Dashboard from "./pages/Home";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+import {ToastContainer} from "react-toastify"
 import Register from "./pages/Register";
 import Settings from "./pages/Settings";
+
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const App = () => {
   return (
     <div className="App">
+      <ToastContainer />
       <Router>
         <Switch>
           <Route path="/" component={Index} exact />
