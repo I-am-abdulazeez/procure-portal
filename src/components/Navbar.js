@@ -78,6 +78,17 @@ const Navbar = () => {
                   Login
                 </Button>
               </Box>
+
+              <Box ml={2} display="flex" alignItems="center">
+                <Button
+                  variant="text"
+                  href="/signup"
+                  disableElevation
+                  color="secondary"
+                >
+                  Register
+                </Button>
+              </Box>
             </List>
           </Container>
         </Toolbar>

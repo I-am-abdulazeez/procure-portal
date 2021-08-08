@@ -6,6 +6,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Settings from "./pages/Settings";
+import Signup from "./pages/Signup";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/" component={Index} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/register" component={Register} exact />
+          <Route path="/signup" component={Signup} exact />
           <DashboardLayout>
             <Route path="/home" component={Dashboard} exact />
             <Route path="/account" component={MyAccount} exact />
