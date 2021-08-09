@@ -79,7 +79,7 @@ const Navbar = () => {
                 </Button>
               </Box>
 
-              <Box ml={2} display="flex" alignItems="center">
+              {/* <Box ml={2} display="flex" alignItems="center">
                 <Button
                   variant="text"
                   href="/signup"
@@ -88,7 +88,7 @@ const Navbar = () => {
                 >
                   Register
                 </Button>
-              </Box>
+              </Box> */}
             </List>
           </Container>
         </Toolbar>
