@@ -10,6 +10,7 @@ import {
   Grid,
   FormControl,
 } from "@material-ui/core";
+import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Navbar from "../components/Navbar";
 
@@ -19,13 +20,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const initialValues = {
+  vendorType: "",
+  companyName: "",
+  companyRegistrationNumber: "",
+};
+
 const Signup = () => {
   const classes = useStyles();
-
-  const initialValues = {
-    vendorType: "",
-    companyName: "",
-  };
 
   return (
     <div>
@@ -52,7 +54,13 @@ const Signup = () => {
             initialValues={initialValues}
             onSubmit={(data) => {
               console.log(data);
+              alert(JSON.stringify(data, null, 2));
             }}
+            validationSchema={yup.object({
+              vendorType: yup.string().required(),
+              companyName: yup.string().required(),
+              companyRegistrationNumber: yup.string().required(),
+            })}
           >
             {({ values, handleBlur, handleChange }) => (
               <Form>
@@ -65,8 +73,9 @@ const Signup = () => {
                       <Select
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        name="vendorType"
                         labelId="ventorType"
+                        name="vendorType"
+                        defaultValue="Local Vendor Limited"
                       >
                         <MenuItem value="Local Vendor Limited">
                           Local Vendor Limited
@@ -91,10 +100,21 @@ const Signup = () => {
                     />
                   </Grid>
 
-                  {values.vendorType === "International Vendor" ? (
-                    <h3>Show Me</h3>
-                  ) : (
-                    ""
+                  {values.vendorType === "International Vendor" && (
+                    <Grid item xs={3}>
+                      <label>Registration No</label>
+                      <Field
+                        name="companyRegistrationNumber"
+                        as={TextField}
+                        fullWidth
+                        label=""
+                      />
+                      <ErrorMessage
+                        className={classes.error}
+                        component="div"
+                        name="companyRegistrationNumber"
+                      />
+                    </Grid>
                   )}
                 </Grid>
 

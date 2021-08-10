@@ -70,3 +70,16 @@
                     //   .string()
                     //   .required("password is required")
                     //   .min(6, "Minimum of 6 characters"),
+
+
+                    // Company Details should come First
+                    // Remove Tax ID
+
+                    .when("vendorType", (vendorType, schema) => {
+                  console.log("Value : ", vendorType);
+                  if (vendorType === "International Vendor") {
+                    schema.required();
+                  } else {
+                    return schema;
+                  }
+                }),
