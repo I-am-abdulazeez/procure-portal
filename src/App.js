@@ -4,7 +4,7 @@ import MyAccount from "./pages/MyAccount";
 import Dashboard from "./pages/Home";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
-import {ToastContainer} from "react-toastify"
+import {ToastContainer} from "react-toastify";
 import Register from "./pages/Register";
 import Settings from "./pages/Settings";
 import Signup from "./pages/Signup";
